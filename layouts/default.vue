@@ -102,9 +102,7 @@ export default {
 </script>
 
 <style>
-html {
-  overflow: hidden;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
 
 #main::-webkit-scrollbar {
   display: none;
@@ -118,4 +116,9 @@ html {
 .v-app-bar {
   z-index: 1000;
 }
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 </style>
