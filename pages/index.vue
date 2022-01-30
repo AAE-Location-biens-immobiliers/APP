@@ -1,75 +1,79 @@
 <template>
-  <v-row justify="center" align="center" style="height: 1000px">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div class="img_accueil">
+    <img class="main_img" src="../static/maison1.jpg" alt="Exemple maison" width="1200" height="800"/>
+    <img class="secondary_img" src="../static/maison2.jpg" alt="Exemple maison2" width="900" height="600"/>
+    <img class="secondary_img" src="../static/maison2.jpg" alt="Exemple maison2" width="900" height="600"/>
+    <p>Louez la maison de<br> vos rêves !</p>
+    <button>Découvrez nos nouveautés</button>
+    
+  </div>
 </template>
+
+<script>
+</script>
+
+<style scoped>
+
+  @font-face {
+    font-family: "Roboto";
+    src: local("Roboto"),   url(../assets/fonts/Roboto-Medium.ttf) format("truetype");
+  }
+   @font-face {
+    font-family: "RobotoBold";
+    src: local("RobotoBold"),   url(../assets/fonts/Roboto-Bold.ttf) format("truetype");
+  }
+  
+  .img_accueil>img:nth-child(1) {
+    position: relative;
+    margin-left: 10%;
+    top: 50%;
+    width: 80%;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px;
+    z-index: 1;
+  }
+
+  .img_accueil>button {
+    background-color: dodgerblue;
+    padding: 15px 32px;
+    color: white;
+    font-size: 22px;
+    border-radius: 30px;
+    position:absolute;
+    top: 630px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    font-family: 'RobotoBold', sans-serif;
+    z-index: 2;
+  }
+
+  .img_accueil>p {
+    position: relative;
+    top: -400px;
+    color: white;
+    text-shadow: 2px 2px 8px #000;
+    text-decoration: underline;
+    text-decoration-color: dodgerblue;
+    text-decoration-thickness: 5px ;
+    text-align: center;
+    font-size: 42px;
+    font-family: 'RobotoBold', sans-serif;
+    z-index: 2;
+  }
+
+  .img_accueil>img{
+    border-radius: 15px;
+    position: absolute;
+    top: 100px;
+    z-index: 0;
+    box-shadow: 0px 0px 8px;
+  }
+
+  .img_accueil>img:nth-child(2){
+    left: 5%;
+  }
+  .img_accueil>img:nth-child(3){
+    left: 36%;
+  }
+
+</style>
