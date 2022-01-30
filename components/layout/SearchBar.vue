@@ -32,19 +32,19 @@ export default {
           title: 'Arrivée',
           subtitle: 'Quand ?',
           search: false,
-          type: 'Date'
+          type: 'Date-fin'
         },
         {
           title: 'Départ',
           subtitle: 'Quand ?',
           search: false,
-          type: 'Date'
+          type: 'Date-depart'
         },
         {
           title: 'Voyageurs',
           subtitle: 'Qui ?',
           search: true,
-          type: 'Number'
+          type: 'Object'
         },
       ]
     }
