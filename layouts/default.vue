@@ -89,11 +89,17 @@ export default {
 </script>
 
 <style>
-html {
-  overflow: hidden;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
 
-#main::-webkit-scrollbar {
-  display: none;
-}
+  *{
+    font-family: 'Roboto', sans-serif;
+  }
+
+  html {
+    overflow: hidden;
+  }
+
+  #main::-webkit-scrollbar {
+    display: none;
+  }
 </style>
