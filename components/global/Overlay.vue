@@ -9,6 +9,9 @@
 <script>
 export default {
   name: "Overlay",
+  model: {
+    prop: 'overlay'
+  },
   props: {
     overlay: {
       type: Boolean,

@@ -13,7 +13,7 @@
           color="error"
           fab
           elevation="3"
-          @click.stop="search"
+          @click.stop="$emit('search')"
         >
           <v-icon color="white">
             mdi-magnify
@@ -22,10 +22,10 @@
       </v-col>
     </v-row>
     <CriteriaMenu
-      :show-menu.sync="showMenu"
+      v-model="showMenu"
       :x="x" :y="y"
       :data-type="criteria.type"
-      @submit-data="(payload) => data = payload.data"
+      @submit-data="submit"
     />
   </v-card>
 </template>
@@ -68,9 +68,11 @@ export default {
         this.showMenu = true
       })
     },
-    search() {
-      alert('Buton')
+    submit(payload) {
+      this.data = typeof payload !== typeof {} ? payload : this.criteria.subtitle
+      this.$emit('submit-data', payload)
     }
+
   }
 }
 </script>

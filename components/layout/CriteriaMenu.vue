@@ -1,6 +1,6 @@
 <template>
   <v-menu
-    v-model="show"
+    :value="showMenu"
     offset-y
     :position-x="x"
     :position-y="y"
@@ -34,6 +34,10 @@ export default {
     Destination,
     Date
   },
+  model: {
+    prop: 'showMenu',
+    event: 'change'
+  },
   props: {
     showMenu: Boolean,
     dataType: {
@@ -53,28 +57,11 @@ export default {
       }
     },
   },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    show: {
-      get() {
-        return this.showMenu;
-      },
-      set(val) {
-        this.$emit("update:show-menu", val);
-      },
-    },
-  },
   methods: {
     send(data) {
-      this.$emit('submit-data', {data, "dataType": this.dataType})
-      this.show = false
+      this.$emit('submit-data', data)
+      this.$emit('change', false)
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

@@ -1,13 +1,11 @@
 <template>
-  <v-container fluid class="pa-0">
-    <v-img
-      v-bind="props"
-      class="ml"
-      :src="require('./../static/Background.jpeg')"
-      max-height="60%"
-      max-width="100%"
-      :height="bgHeight"
-    >
+  <v-img
+    class="ml"
+    :src="require('./../static/Background.jpeg')"
+    max-height="60%"
+    max-width="100%"
+  >
+    <v-container fluid class="pa-0">
       <v-row justify="center" align="center" style="height: 600px">
         <v-col cols="5" sm="3" md="4">
           <v-card color="secondary" style="padding: 10px">
@@ -24,9 +22,9 @@
                 </div>
                 <div style="padding: 2px">
                   <v-text-field
+                    v-model="password"
                     background-color="white"
                     outlined
-                    v-model="password"
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     :rules="[rules.required, rules.min]"
                     :type="show1 ? 'text' : 'password'"
@@ -43,7 +41,7 @@
               </v-col>
 
               <v-col cols="2" sm="5">
-                <v-btn color="primary" elevation="2" block> Inscription </v-btn>
+                <v-btn color="primary" elevation="2" block @click="$router.push('/inscription')"> Inscription </v-btn>
               </v-col>
             </div>
             <v-card-text
@@ -53,12 +51,13 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-img>
-  </v-container>
+    </v-container>
+  </v-img>
 </template>
 
 <script>
 export default {
+  layout: 'empty',
   data() {
     return {
       show1: false,

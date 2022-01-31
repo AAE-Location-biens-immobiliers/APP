@@ -1,34 +1,35 @@
 <template>
-  <v-card>
-    <v-card-text>
-      <v-row class="mx-auto">
-        <v-list>
-          <v-list-item
-            v-for="(categorie, i) in categories"
-            :key="i">
-
-            <v-list-item-content>
-              <v-row>
-                <v-col cols="8" class="pr-0">
-                  <v-list-item-title v-text="categorie.titre" />
-                  <v-list-item-subtitle v-text="categorie.sousTitre" />
-                </v-col>
-                <v-col class="pl-0">
-                  <PlusOuMoins @changeData="(v) => value = v"/>
-                </v-col>
-              </v-row>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-row>
-      <v-row>
-        <v-spacer />
-        <v-btn color="info" rounded class="mb-2 mx-2" @click="submit">
-          Ok
-        </v-btn>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <v-container style="background-color: white">
+    <v-row>
+      <v-col cols="12">
+        <v-card elevation="0">
+          <v-card-text>
+            <v-row>
+              <v-list>
+                <v-list-item
+                  v-for="(categorie, i) in categories"
+                  :key="i">
+                  <v-list-item-content>
+                    <v-list-item-title v-text="categorie.titre" />
+                    <v-list-item-subtitle v-text="categorie.sousTitre" />
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <PlusOuMoins @changeData="(v) => values[categorie.titre] = v "/>
+                  </v-list-item-action>
+                </v-list-item>
+              </v-list>
+            </v-row>
+            <v-row>
+              <v-spacer />
+              <v-btn color="info" rounded @click="submit">
+                Ok
+              </v-btn>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -41,7 +42,7 @@ export default {
   },
   data() {
     return {
-      value: 0,
+      values: {},
       categories:[
         {
           titre: 'Adultes',
@@ -60,7 +61,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit()
+      this.$emit('submit-object', this.values)
     }
   }
 }

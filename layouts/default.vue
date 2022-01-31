@@ -1,5 +1,5 @@
 <template>
-  <v-app app @overlay="(val) => overlay = val">
+  <v-app app>
 
     <v-app-bar
       ref="appBar"
@@ -10,21 +10,23 @@
       scroll-target="#main">
 
       <template #img="{ props }">
-        <v-img
-          v-bind="props"
-          class="ml-10"
-          :src="require('./../static/sharaloc.svg')"
-          max-height="128"
-          max-width="128"
-          contain
-        />
+        <div @click="$router.push('/')">
+          <v-img
+            v-bind="props"
+            class="ml-10"
+            :src="require('./../static/sharaloc.svg')"
+            max-height="128"
+            max-width="128"
+            contain
+          />
+        </div>
       </template>
 
-      <v-card width="128" class="ml-10" />
+      <v-card width="128" max-height="128" class="ml-5"  />
 
       <v-spacer />
 
-      <SearchBar v-show="isP" class="my-auto" />
+      <SearchBar v-show="isP" class="ma-auto" />
 
       <SmallSearchBar
         v-show="!isP"
@@ -38,10 +40,11 @@
 
     </v-app-bar>
 
-    <v-sheet id="main" ref="main" max-height="100vh" style="overflow: auto" @scroll="check()">
+    <v-sheet id="main" ref="main" @scroll="check">
       <v-main>
         <v-container fluid>
-          <overlay :overlay="overlay"/>
+          <NotificationListe />
+          <overlay v-model="overlay"/>
           <Nuxt />
         </v-container>
       </v-main>
@@ -61,20 +64,30 @@ import Overlay from "@/components/global/Overlay";
 import AccountIcon from "@/components/layout/AccountIcon";
 import SearchBar from "@/components/layout/SearchBar";
 import SmallSearchBar from "@/components/layout/SmallSearchBar";
+import NotificationListe from "@/components/global/NotificationListe";
 
 export default {
   components: {
+    NotificationListe,
     SearchBar,
     SmallSearchBar,
     AccountIcon,
-    Overlay
+    Overlay,
   },
   data () {
     return {
       name: "Sharaloc",
       overlay: false,
+      notification: {
+        show: false
+      },
       isP: true
     }
+  },
+  created() {
+    this.$nuxt.$on('overlay', (val) => {
+      this.overlay = val
+    })
   },
   methods: {
     check() {
@@ -82,7 +95,7 @@ export default {
     },
     extend() {
       this.$refs.main.$el.scrollTo(0,0);
-      setTimeout(() => { this.isP = true }, 50)
+      setTimeout(() => { this.isP = true }, 25)
     }
   }
 }
@@ -95,5 +108,14 @@ html {
 
 #main::-webkit-scrollbar {
   display: none;
+}
+
+#main {
+  overflow: auto;
+  max-height: 100vh;
+}
+
+.v-app-bar {
+  z-index: 1000;
 }
 </style>
