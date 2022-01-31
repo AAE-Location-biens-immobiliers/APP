@@ -121,4 +121,7 @@ export default {
   font-family: 'Roboto', sans-serif;
 }
 
+html {
+  overflow: hidden;
+}
 </style>
