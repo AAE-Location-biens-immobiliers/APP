@@ -53,6 +53,7 @@ export default {
   z-index: 100;
   max-width: 300px;
   max-height:75vh;
+  background-color: transparent;
 
   &::-webkit-scrollbar {
     display: none;
@@ -60,6 +61,6 @@ export default {
 }
 
 .v-list-item__content {
-  padding: 0;
+  padding-bottom: 0;
 }
 </style>

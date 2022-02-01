@@ -65,3 +65,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.v-menu__content {
+  background-color: white;
+}
+</style>

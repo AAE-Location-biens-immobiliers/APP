@@ -1,7 +1,6 @@
 <template>
   <v-alert
     :type="notification.err === true ? 'error' : 'success'"
-    elevation="24"
     border="top"
     dismissible
     transition="slide-x-reverse-transition"
