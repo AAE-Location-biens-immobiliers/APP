@@ -10,16 +10,14 @@
       scroll-target="#main">
 
       <template #img="{ props }">
-        <div @click="$router.push('/')">
-          <v-img
-            v-bind="props"
-            class="ml-10"
-            :src="require('./../static/sharaloc.svg')"
-            max-height="128"
-            max-width="128"
-            contain
-          />
-        </div>
+        <v-img
+          v-bind="props"
+          class="ml-10"
+          :src="require('./../static/sharaloc.svg')"
+          max-height="128"
+          max-width="128"
+          contain
+        />
       </template>
 
       <v-card width="128" max-height="128" class="ml-5"  />
