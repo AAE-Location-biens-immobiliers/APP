@@ -3,7 +3,7 @@
     <v-container fluid class="fill-height px-1">
       <v-row class="mx-0">
         <v-col v-for="(criteria, i) in criterias" :key="i" class="col-3 pa-0" style="position: relative">
-          <Criteria :criteria="criteria"/>
+          <Criteria :criteria="criteria" @search="search" @submit-data="(data) => values[criteria.type] = data" />
           <div :style="'position: absolute; top: 0; bottom: 0; right: 0;'.concat(i === criterias.length - 1 ? '' : 'border-right: 1px solid lightgrey;')" />
         </v-col>
       </v-row>
@@ -32,21 +32,29 @@ export default {
           title: 'Arrivée',
           subtitle: 'Quand ?',
           search: false,
-          type: 'Date'
+          type: 'Date-debut'
         },
         {
           title: 'Départ',
           subtitle: 'Quand ?',
           search: false,
-          type: 'Date'
+          type: 'Date-fin'
         },
         {
           title: 'Voyageurs',
           subtitle: 'Qui ?',
           search: true,
-          type: 'Number'
+          type: 'Object'
         },
-      ]
+      ],
+      values: {},
+    }
+  },
+  methods: {
+    search() {
+      /* this.$nuxt.$emit('overlay', true)
+      setTimeout(() => this.$nuxt.$emit('overlay', false), 5000) */
+      this.$nuxt.$emit('notification', false, "Message alert")
     }
   }
 }

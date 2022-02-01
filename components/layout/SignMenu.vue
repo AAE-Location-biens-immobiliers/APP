@@ -82,12 +82,12 @@ export default {
       menuItems: [
         {
           title: "Connexion",
-          to: "/Connexion",
+          to: "/connexion",
           connected: false
         },
         {
           title: "Inscription",
-          to: "/Inscription",
+          to: "/inscription",
           connected: false
         },
         {
