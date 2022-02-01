@@ -52,8 +52,9 @@ export default {
   },
   methods: {
     search() {
-      this.$nuxt.$emit('overlay', true)
-      setTimeout(() => this.$nuxt.$emit('overlay', false), 5000)
+      /* this.$nuxt.$emit('overlay', true)
+      setTimeout(() => this.$nuxt.$emit('overlay', false), 5000) */
+      this.$nuxt.$emit('notification', false, "Message alert")
     }
   }
 }

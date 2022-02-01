@@ -78,9 +78,6 @@ export default {
     return {
       name: "Sharaloc",
       overlay: false,
-      notification: {
-        show: false
-      },
       isP: true
     }
   },
