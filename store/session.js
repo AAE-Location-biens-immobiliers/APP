@@ -1,5 +1,6 @@
 export const state = () => ({
+  authenticated: false,
   currentUser: {
-    authenticated: false
+
   }
 })
