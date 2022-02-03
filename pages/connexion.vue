@@ -1,56 +1,75 @@
 <template>
   <v-img
-    class="ml"
     :src="require('./../static/Background.jpeg')"
-    max-height="60%"
-    max-width="100%"
   >
-    <v-container fluid class="pa-0">
-      <v-row justify="center" align="center" style="height: 600px">
-        <v-col cols="5" sm="3" md="4">
-          <v-card color="secondary" style="padding: 10px">
-            <div class="d-flex flex-column justify-space-between align-center">
-              <v-col cols="5" sm="8">
-                <div style="padding: 2px">
-                  <v-text-field
-                    background-color="white"
-                    label="Pseudo"
-                    outlined
-                    :rules="rules"
-                    hide-details="auto"
-                  ></v-text-field>
-                </div>
-                <div style="padding: 2px">
-                  <v-text-field
-                    v-model="password"
-                    background-color="white"
-                    outlined
-                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                    :rules="[rules.required, rules.min]"
-                    :type="show1 ? 'text' : 'password'"
-                    name="input-10-1"
-                    label="Mot de passe"
-                    hint="Au moins 8 characters"
-                    counter
-                    @click:append="show1 = !show1"
-                  ></v-text-field>
-                </div>
-              </v-col>
-              <v-col cols="2" sm="5">
-                <v-btn color="primary" elevation="2" block> Connexion </v-btn>
-              </v-col>
+    <v-container fluid class=" justify-center" fill-height>
+      <v-card color="secondary" min-width="400">
 
-              <v-col cols="2" sm="5">
-                <v-btn color="primary" elevation="2" block @click="$router.push('/inscription')"> Inscription </v-btn>
+        <v-img
+          class="align-end"
+          max-height="200"
+          contain
+          :src="require('~/static/sharaloc.svg')"
+        />
+
+        <v-card-title class="justify-center">
+          Portail
+        </v-card-title>
+
+        <v-form ref="form">
+          <v-card-text>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="email"
+                  background-color="white"
+                  label="E-mail"
+                  outlined
+                  :rules="[rules.required, rules.emailFormat]"
+                  hide-details="auto"
+                />
               </v-col>
-            </div>
-            <v-card-text
-              class="d-flex flex-column justify-space-between align-center"
-            >
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+            </v-row>
+
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="password"
+                  background-color="white"
+                  outlined
+                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                  :rules="[rules.required, rules.min]"
+                  :type="show ? 'text' : 'password'"
+                  label="Mot de passe"
+                  counter
+                  @click:append="show = !show"
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-divider />
+
+          <v-card-actions>
+            <v-btn color="primary" elevation="2" outlined rounded @click="$router.push('/inscription')">
+              <v-icon left>
+                mdi-pencil
+              </v-icon>
+              Inscription
+            </v-btn>
+
+            <v-spacer />
+
+            <v-btn color="primary" rounded elevation="2" @click="submit">
+              <v-icon left>
+                mdi-fingerprint
+              </v-icon>
+              Se connecter
+            </v-btn>
+          </v-card-actions>
+
+        </v-form>
+      </v-card>
     </v-container>
   </v-img>
 </template>
@@ -60,15 +79,39 @@ export default {
   layout: 'empty',
   data() {
     return {
-      show1: false,
+      show: false,
       password: '',
+      email: '',
       rules: {
-        required: (value) => !!value || 'Requis',
-        min: (v) => v.length >= 8 || 'Min 8 characters',
-        emailMatch: () => `The email and password you entered don't match`,
+        required: (value) => !!value || 'Ce champ est equis',
+        min: (v) => v.length >= 8 || 'Minimum 8 caractères',
+        emailFormat: (v) => this.emailMatchFormat(v) || "L'e-mail n'est pas au bon format"
       },
     }
   },
+  methods: {
+    emailMatchFormat(email) {
+      return String(email)
+        .toLowerCase()
+        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+    },
+    async submit() {
+      if (this.$refs.form.validate()) {
+        this.$nuxt.$emit('overlay', true)
+        try {
+          await this.$store.dispatch('session/connexion', {
+            email: this.email,
+            password: this.password
+          })
+        } catch (e) {
+          console.log(e)
+          this.$nuxt.$emit('notification', true, "Le mot de passe et l'email ne correspondent pas")
+        } finally {
+          this.$nuxt.$emit('overlay', false)
+        }
+      }
+    }
+  }
 }
 </script>
 

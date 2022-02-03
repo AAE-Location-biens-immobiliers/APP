@@ -28,7 +28,7 @@
 
     <v-list>
       <v-list-item
-        v-for="(item, i) in menuItems.filter(e => e.connected === $store.state.session.currentUser.authenticated)"
+        v-for="(item, i) in menuItems.filter(e => e.connected === $store.state.session.authenticated)"
         :key="i"
         :to="item.to"
         style="border-bottom: 1px solid lightgrey"
@@ -61,7 +61,7 @@
 
       <v-list>
         <v-list-item
-          v-for="(item, i) in menuItems.filter(e => e.connected === $store.state.session.currentUser.authenticated)"
+          v-for="(item, i) in menuItems.filter(e => e.connected === $store.state.session.authenticated)"
           :key="i"
           :to="item.to"
           style="border-bottom: 1px solid lightgrey"

@@ -10,16 +10,14 @@
       scroll-target="#main">
 
       <template #img="{ props }">
-        <div @click="$router.push('/')">
-          <v-img
-            v-bind="props"
-            class="ml-10"
-            :src="require('./../static/sharaloc.svg')"
-            max-height="128"
-            max-width="128"
-            contain
-          />
-        </div>
+        <v-img
+          v-bind="props"
+          class="ml-10"
+          :src="require('./../static/sharaloc.svg')"
+          max-height="128"
+          max-width="128"
+          contain
+        />
       </template>
 
       <v-card width="128" max-height="128" class="ml-5"  />
@@ -40,15 +38,15 @@
 
     </v-app-bar>
 
-    <v-sheet id="main" ref="main" @scroll="check">
-      <v-main>
+    <v-main>
+      <v-sheet id="main" ref="main" @scroll="check">
         <v-container fluid>
           <NotificationListe />
           <overlay v-model="overlay"/>
           <Nuxt />
         </v-container>
-      </v-main>
-    </v-sheet>
+      </v-sheet>
+    </v-main>
 
     <v-footer
       fixed
@@ -98,16 +96,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
-
-#main::-webkit-scrollbar {
-  display: none;
-}
 
 #main {
   overflow: auto;
   max-height: 100vh;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &>v-container {
+    max-height: 100%;
+  }
+}
+
+html {
+  overflow: hidden;
 }
 
 .v-app-bar {
@@ -116,10 +122,6 @@ export default {
 
 * {
   font-family: 'Roboto', sans-serif;
-}
-
-html {
-  overflow: hidden;
 }
 
 </style>
