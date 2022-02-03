@@ -1,15 +1,13 @@
 <template>
-  <v-app app>
+  <v-app fixed app>
 
-    <v-sheet id="main" ref="main" max-height="100vh">
-      <v-main>
-        <v-container fluid class="pa-0">
-          <NotificationListe />
-          <overlay v-model="overlay" />
-          <Nuxt />
-        </v-container>
-      </v-main>
-    </v-sheet>
+    <v-main ref="main">
+      <v-container fluid class="pa-0">
+        <NotificationListe />
+        <overlay v-model="overlay" />
+        <Nuxt />
+      </v-container>
+    </v-main>
 
     <v-footer
       fixed

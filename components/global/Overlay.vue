@@ -1,5 +1,5 @@
 <template>
-  <v-overlay :value="overlay" color="accent">
+  <v-overlay :value="overlay" color="accent" z-index="10000">
     <v-icon x-large color="warning">
       mdi-timer
     </v-icon>

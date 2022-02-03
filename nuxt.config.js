@@ -31,6 +31,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/vuex.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -52,12 +53,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8000/api', // Used as fallback if no runtime config is provided
-    /* headers: {
+    baseURL: 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
+    headers: {
       common: {
         'Accept': 'application/json'
       },
-    } */
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
