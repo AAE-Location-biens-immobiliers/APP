@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import filtre from '~/components/layout/filtre.vue'
+import filtre from '~/components/layout/Filtre.vue'
 
 export default {
   name: 'filstreList',
