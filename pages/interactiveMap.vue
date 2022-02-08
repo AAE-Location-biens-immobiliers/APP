@@ -14,7 +14,7 @@
 
 <script>
 import ItemListPins from '../components/layout/ItemListPins.vue'
-import filtreList from '../components/layout/filtreList.vue'
+import filtreList from '../components/layout/FiltreList.vue'
 import Map from '../components/layout/Map.vue'
 
 export default {
