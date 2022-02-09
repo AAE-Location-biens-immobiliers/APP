@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -43,6 +43,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -53,7 +54,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
+    baseURL: process.env.BASE_URL || 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
     headers: {
       common: {
         'Accept': 'application/json'

@@ -79,6 +79,8 @@
 </template>
 
 <script>
+import {Utilisateur} from "@/models/utilisateur";
+
 export default {
   layout: 'empty',
   data: () => {
@@ -102,13 +104,24 @@ export default {
         .toLowerCase()
         .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     },
-    submit() {
+    async submit() {
       if(this.$refs.form.validate()) {
         if (this.password === this.password2) {
           this.$nuxt.$emit('overlay', true)
-          setTimeout(() => {
-            this.$router.push('/')
-          }, 3000)
+          const user = new Utilisateur({
+            nom: this.nom,
+            prenom: this.prenom,
+            email: this.email,
+            password: this.password
+          })
+
+          try {
+            await this.$store.dispatch('session/inscription', user)
+          } catch (e) {
+            this.$nuxt.$emit('notification', true, e.message)
+          } finally {
+            this.$nuxt.$emit('overlay', false)
+          }
         } else {
           this.$nuxt.$emit('notification', true, "Les 2 mots de passe ne matchent pas !")
         }

@@ -6,6 +6,10 @@ export const state = () => ({
 })
 
 export const mutations = {
+  connexion(state, user) {
+    state.authenticated = true
+    state.currentUser = new Utilisateur(user)
+  },
   deconnexion(state) {
     state.authenticated = false
     state.currentUser = null
@@ -13,7 +17,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async connexion({ state }, { email, password }) {
+  async connexion({ state, commit }, { email, password }) {
     const res = await this.$axios.get('/connexion/login', {
       params: {
         identifiant: email,
@@ -21,19 +25,17 @@ export const actions = {
       }
     })
     if (res.status === 200) {
-      state.authenticated = true
-      state.currentUser = new Utilisateur(res.data)
+      commit('connexion', res.data)
       await this.$router.push('/')
     } else if(res.status === 204) throw new Error("Le mot de passe et l'email ne correspondent pas")
     else throw new Error("Erreur inconnue")
   },
 
-  async inscription({ state }, user) {
+  async inscription({ state, commit }, user) {
     try {
       const res = await this.$axios.post('/connexion/register', { ...user })
       if (res.status === 200) {
-        state.authenticated = true
-        state.currentUser = new Utilisateur(user)
+        commit('connexion', user)
         await this.$router.push('/')
       }
     } catch (e) {
