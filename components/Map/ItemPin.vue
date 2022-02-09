@@ -1,6 +1,5 @@
-<template v-slot:default="{ active }">
+<template>
   <v-container
-    :key="index"
     class="item mx-auto"
     style="margin-bottom: 10px; background: white"
   >
@@ -13,15 +12,15 @@
         <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
         <div style="display: flex; justify-content: flex-start">
           <v-rating
-            hover
             v-model="rating"
+            hover
             readonly
             background-color="indigo lighten-3"
             color="indigo"
             value="1"
             length="5"
             small
-          ></v-rating>
+          />
           <v-spacer />
           <div style="margin-top:8px">Prix</div>
         </div>
