@@ -1,4 +1,4 @@
-import colors from 'vuetify/es5/util/colors'
+import env from './env'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -31,7 +31,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/vuex.js'
+    '~/plugins/vuex.js',
+    '~/plugins/google-maps.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -43,6 +44,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -53,7 +55,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
+    baseURL: env.baseURL || 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
     headers: {
       common: {
         'Accept': 'application/json'
@@ -82,5 +84,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+    transpile: [/^vue2-google-maps($|\/)/]
+  },
+
+
 }

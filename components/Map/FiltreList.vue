@@ -6,18 +6,18 @@
     color="#E0E0E0"
   >
     <v-list style="overflow-y: auto" color="#E0E0E0" one-line>
-      <template v-for="(filtre, index) in filtres">
-        <div :key="index"><filtre :filtre="filtre" :index="index" /></div>
-      </template>
+      <div v-for="(filtre, index) in filtres" :key="index">
+        <filtre :filtre="filtre" />
+      </div>
     </v-list>
   </v-card>
 </template>
 
 <script>
-import filtre from '~/components/layout/Filtre.vue'
+import filtre from '@/components/Map/Filtre.vue'
 
 export default {
-  name: 'filstreList',
+  name: 'FilstreList',
   components: { filtre },
   data: () => ({
     filtres: [

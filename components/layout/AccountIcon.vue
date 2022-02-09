@@ -24,6 +24,11 @@ export default {
     return {
       profileImage: null
     }
+  },
+  created() {
+    if (this.$store.state["session/authenticated"]) {
+      this.profileImage = this.$store.state["session/currentUser"].photo
+    }
   }
 }
 </script>

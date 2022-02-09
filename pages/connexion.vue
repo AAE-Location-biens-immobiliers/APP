@@ -103,9 +103,9 @@ export default {
             email: this.email,
             password: this.password
           })
+          this.$store.commit('session/connexion', {})
         } catch (e) {
-          console.log(e)
-          this.$nuxt.$emit('notification', true, "Le mot de passe et l'email ne correspondent pas")
+          this.$nuxt.$emit('notification', true, e.message)
         } finally {
           this.$nuxt.$emit('overlay', false)
         }
@@ -116,4 +116,5 @@ export default {
 </script>
 
 <style  scoped>
+
 </style>
