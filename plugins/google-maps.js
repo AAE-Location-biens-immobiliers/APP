@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
-
+import VueGeolocation from 'vue-browser-geolocation'
+Vue.config.productionTip = false
+Vue.use(VueGeolocation)
 Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyBHSc759cXYHJhDxXfQzaCalJwsqePt308",

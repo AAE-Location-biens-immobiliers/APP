@@ -40,7 +40,7 @@
 
     <v-main>
       <v-sheet id="main" ref="main" @scroll="check">
-        <v-container fluid>
+        <v-container fluid pa-0>
           <NotificationListe />
           <overlay v-model="overlay"/>
           <Nuxt />

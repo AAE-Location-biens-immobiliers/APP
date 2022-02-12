@@ -10,20 +10,30 @@
       <v-list-item-content>
         <v-list-item-title v-html="item.title"></v-list-item-title>
         <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
-        <div style="display: flex; justify-content: flex-start">
-          <v-rating
-            v-model="rating"
-            hover
-            readonly
-            background-color="indigo lighten-3"
-            color="indigo"
-            value="1"
-            length="5"
-            small
-          />
-          <v-spacer />
-          <div style="margin-top:8px">Prix</div>
-        </div>
+        <v-row class="mb-0 pa-0" no-gutters>
+          <v-col fluid cols="14" sm="10">
+            <div >
+              <v-rating
+                v-model="rating"
+                hover
+                readonly
+                background-color="indigo lighten-3"
+                color="indigo"
+                value="1"
+                length="5"
+                small
+              />
+              <div>
+                Avis
+              </div>
+            </div>
+          </v-col>
+          <v-col cols="14" sm="2" class="d-flex align-content-end flex-wrap" >
+            <div >
+              Prix
+            </div>
+          </v-col>
+        </v-row>
       </v-list-item-content>
     </v-list-item>
   </v-container>
@@ -52,6 +62,6 @@ export default {
 <style scoped>
 .item {
   border-radius: 50px;
-  border: 3px solid #BDBDBD;
+  border: 2px solid rgb(78, 76, 76);
 }
 </style>
