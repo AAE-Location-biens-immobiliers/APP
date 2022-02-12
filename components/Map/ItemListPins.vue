@@ -1,11 +1,11 @@
 <template>
   <v-card
-    class="mx-auto pa-3 overflow-y-auto"
-    height="625px"
-    width="100%"
-    color="#1565C0"
+    class="o pa-3 overflow-y-auto"
+    style="margin: 15px"
+    height="600px"
+    color="secondary"
   >
-    <v-list style="overflow-y: auto" color="#1565C0" three-line>
+    <v-list style="overflow-y: auto" color="secondary" three-line>
       <div v-for="(item, index) in items" :key="index">
         <ItemPin :item="item" />
       </div>

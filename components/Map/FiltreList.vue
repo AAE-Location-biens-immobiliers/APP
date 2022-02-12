@@ -1,63 +1,71 @@
 <template>
-  <v-card
-    class="mx-auto pa-3 overflow-y-auto"
-    height="625px"
-    width="100%"
-    color="#E0E0E0"
-  >
-    <v-list style="overflow-y: auto" color="#E0E0E0" one-line>
-      <div v-for="(filtre, index) in filtres" :key="index">
-        <filtre :filtre="filtre" />
-      </div>
-    </v-list>
-  </v-card>
+  <div style="margin: 15px">
+    <v-card
+      height="600px"
+      width="100%"
+      outlined
+      color="secondary"
+      class="mx-auto"
+    >
+      <v-list color="transparent" one-line>
+        <ParameterFiltre @submit-data="updateFiltres"/>
+      </v-list>
+
+      <v-divider
+        style=" margin-top: 20px; margin-left: 10px;margin-right: 10px;"
+        color="#757575"
+      />
+      <v-card
+        class=" overflow-y-auto"
+        height="510px"
+        width="100%"
+        outlined
+        color="transparent"
+      >
+        <v-list color="transparent" one-line>
+          <div v-for="(filtre, index) in filtres" :key="index">
+            <div v-if="filtre.choose" @click="clickEvent(filtre)">
+              <filtre :filtre="filtre"/>
+            </div>
+          </div>
+        </v-list>
+      </v-card>
+    </v-card>
+  </div>
 </template>
 
 <script>
 import filtre from '@/components/Map/Filtre.vue'
+import ParameterFiltre from "@/components/Map/ParameterFiltre";
 
 export default {
-  name: 'FilstreList',
-  components: { filtre },
-  data: () => ({
-    filtres: [
-      {
-        filtres: 'Filtres',
-        icon:'fas fa-list'
+  name: 'FiltreList',
+  components: {ParameterFiltre, filtre},
+  data() {
+    return {
+      values: {
+        type: 'Type de logement',
+        name: 'Maison',
+        choose: false,
       },
-      {
-        divider: true,
-        inset: true,
-      },
-      {
-        type: 'Annulation gratuite',
-      },
-      {
-        type: 'Wifi',
-      },
-      {
-        type: 'Lave linge',
-      },
-      {
-        type: 'Cuisine',
-      },
-      {
-        type: 'Sèche linge',
-      },
-      {
-        type: 'Wifi',
-      },
-      {
-        type: 'Wifi',
-      },
-      {
-        type: 'Wifi',
-      },
-      {
-        type: 'Wifi',
-      },
-    ],
-  }),
+      filtres: {},
+    }
+  },
+
+  methods: {
+
+    updateFiltres(data) {
+      /* alert('Event accessed from parent!'); */
+      this.filtres = data;
+    },
+    clickEvent(filtre) {
+      filtre.choose = false;
+      if(filtre.number){
+        filtre.number=0;
+      }
+    },
+
+  }
 }
 </script>
 

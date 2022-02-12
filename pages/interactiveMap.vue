@@ -1,5 +1,5 @@
 <template>
-  <v-row class="mb-0 pa-0" no-gutters>
+  <v-row class="mb-0 pa-0" no-gutters  style="background-color:#1565C0">
     <v-col fluid cols="14" sm="4">
       <ItemListPins :items="items" />
     </v-col>
