@@ -1,6 +1,6 @@
 <template>
   <v-alert
-    :type="notification.err === true ? 'error' : 'success'"
+    :type="notification.err === null ? 'warning' : notification.err === true ? 'error' : 'success'"
     border="top"
     dismissible
     transition="slide-x-reverse-transition"
@@ -53,5 +53,6 @@ export default {
 <style scoped lang="scss">
 .v-alert {
   margin-bottom: 0;
+  z-index: 100000000
 }
 </style>

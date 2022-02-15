@@ -59,7 +59,8 @@ export default {
   },
   methods: {
     send(data) {
-      this.$emit('submit-data', data)
+      const payload = { [this.dataType]: data }
+      this.$store.commit('search/set', payload)
       this.$emit('change', false)
     }
   }

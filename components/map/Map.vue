@@ -42,7 +42,6 @@ export default {
       }],
     }
   },
-
   computed: {
     mapCoordinates() {
       if (!this.map) {
@@ -57,7 +56,16 @@ export default {
       }
     }
   },
-
+  async mounted() {
+    // add the map to a data object
+    const self = this
+    try {
+      self.map = await this.$refs.mapRef.$mapPromise
+    }
+    catch (e) {
+      self.map = null
+    }
+  },
   created() {
     // does the user have a saved center? use it instead of the default
     if (localStorage.center) {
@@ -94,7 +102,24 @@ export default {
       localStorage.zoom = zoom;
     }
   },
+<<<<<<< HEAD:components/Map/Map.vue
 
+=======
+  methods: {
+    handleDrag() {
+      // get center and zoom level, store in localstorage
+      const center = {
+        lat: this.map.getCenter().lat(),
+        lng: this.map.getCenter().lng()
+      };
+      const zoom = this.map.getZoom();
+
+      localStorage.center = JSON.stringify(center);
+      localStorage.zoom = zoom;
+    }
+
+  },
+>>>>>>> Habitations => 60%:components/map/Map.vue
 }
 </script>
 <style>

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueGeolocation from 'vue-browser-geolocation'
-Vue.config.productionTip = false
+
 Vue.use(VueGeolocation)
+
 Vue.use(VueGoogleMaps, {
   load: {
-    key: "AIzaSyBHSc759cXYHJhDxXfQzaCalJwsqePt308",
+    key: process.env.GOOGLE_API_KEY,
     libraries: 'places', // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'

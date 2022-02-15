@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ItemPin from '@/components/Map/ItemPin.vue'
+import ItemPin from '@/components/map/ItemPin.vue'
 
 export default {
   name: 'ItemListPins',

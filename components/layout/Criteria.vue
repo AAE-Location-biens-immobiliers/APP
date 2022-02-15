@@ -3,10 +3,10 @@
     <v-row class="pa-0">
       <v-col :class="'py-0 pr-0 col-'.concat((criteria.search) ? '9' : '12')">
         <v-card-title class="pt-0 pr-0">{{ criteria.title }}</v-card-title>
-        <v-card-subtitle class="pb-0 pr-0">{{ data === null ? criteria.subtitle : data }}</v-card-subtitle>
+        <v-card-subtitle class="pb-0 pr-0">{{ data === null || data === '' ||typeof data === typeof {} ? criteria.subtitle : data }}</v-card-subtitle>
       </v-col>
 
-      <v-col :class="'my-auto pa-0 col-'.concat((criteria.search) ? '3' : '0')">
+      <v-col :class="'my-auto pa-0 col-'.concat(criteria.search ? '3' : '0')">
         <v-btn
           v-if="criteria.search"
           small
@@ -25,7 +25,6 @@
       v-model="showMenu"
       :x="x" :y="y"
       :data-type="criteria.type"
-      @submit-data="submit"
     />
   </v-card>
 </template>
@@ -59,6 +58,14 @@ export default {
       data: null,
     }
   },
+  watch: {
+    '$store.state.search.values'() {
+      this.data = this.$store.getters["search/getValues"][this.criteria.type] ?? null
+    }
+  },
+  created() {
+    this.data = this.$store.getters["search/getValues"][this.criteria.type] ?? null
+  },
   methods: {
     open() {
       this.showMenu = false
@@ -68,11 +75,6 @@ export default {
         this.showMenu = true
       })
     },
-    submit(payload) {
-      this.data = typeof payload !== typeof {} ? payload : this.criteria.subtitle
-      this.$emit('submit-data', payload)
-    }
-
   }
 }
 </script>

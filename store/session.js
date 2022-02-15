@@ -1,28 +1,31 @@
 import {Utilisateur} from "@/models/utilisateur";
 
 export const state = () => ({
-  authenticated: false,
   currentUser: null
 })
 
+export const getters = {
+  isAuth(state) {
+    return state.currentUser !== null
+  },
+  getUser(state) {
+    return state.currentUser
+  }
+}
+
 export const mutations = {
   connexion(state, user) {
-    state.authenticated = true
     state.currentUser = new Utilisateur(user)
   },
   deconnexion(state) {
-    state.authenticated = false
     state.currentUser = null
   }
 }
 
 export const actions = {
-  async connexion({ state, commit }, { email, password }) {
+  async connexion({ state, commit }, credentials) {
     const res = await this.$axios.get('/connexion/login', {
-      params: {
-        identifiant: email,
-        password
-      }
+      params: credentials
     })
     if (res.status === 200) {
       commit('connexion', res.data)

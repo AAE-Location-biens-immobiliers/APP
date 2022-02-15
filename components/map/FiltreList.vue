@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import filtre from '@/components/Map/Filtre.vue'
 import ParameterFiltre from "@/components/Map/ParameterFiltre";
+import filtre from '@/components/map/Filtre.vue'
 
 export default {
   name: 'FiltreList',

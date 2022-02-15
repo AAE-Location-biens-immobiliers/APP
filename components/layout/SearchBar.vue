@@ -1,13 +1,13 @@
 <template>
   <v-card class="search-bar">
-    <v-container fluid class="fill-height px-1">
-      <v-row class="mx-0">
-        <v-col v-for="(criteria, i) in criterias" :key="i" class="col-3 pa-0" style="position: relative">
-          <Criteria :criteria="criteria" @search="search" @submit-data="(data) => values[criteria.type] = data" />
-          <div :style="'position: absolute; top: 0; bottom: 0; right: 0;'.concat(i === criterias.length - 1 ? '' : 'border-right: 1px solid lightgrey;')" />
-        </v-col>
-      </v-row>
-    </v-container>
+        <v-container fluid class="fill-height px-1">
+          <v-row class="mx-0">
+            <v-col v-for="(criteria, i) in criterias" :key="i" class="col-3 pa-0" style="position: relative">
+              <Criteria :criteria="criteria" @search="search" />
+              <div :style="'position: absolute; top: 0; bottom: 0; right: 0;'.concat(i === criterias.length - 1 ? '' : 'border-right: 1px solid lightgrey;')" />
+            </v-col>
+          </v-row>
+        </v-container>
   </v-card>
 </template>
 
@@ -47,14 +47,50 @@ export default {
           type: 'Object'
         },
       ],
-      values: {},
     }
   },
   methods: {
     search() {
-      /* this.$nuxt.$emit('overlay', true)
-      setTimeout(() => this.$nuxt.$emit('overlay', false), 5000) */
-      this.$nuxt.$emit('notification', false, "Message alert")
+      const values = this.$store.getters["search/getValues"]
+
+      if (!('String' in values) || 'String' in values && values.String === '') {
+        this.$nuxt.$emit('notification', null, "S'il vous plaît choisissez une destination")
+        return
+      }
+
+      if(!this.checkDate(values)) return
+
+      this.$nuxt.$emit('overlay', true)
+      setTimeout(async () => {
+        await this.$router.push('/recherche')
+        this.$nuxt.$emit("overlay", false);
+      }, 3000)
+    },
+    checkDate(values) {
+      const dateKeys = Object.keys(values).filter(el => el.includes('Date') && values[el] !== null).length
+
+      if(dateKeys !== 2 && dateKeys !== 0) {
+        this.$nuxt.$emit('notification', null, "Choisissez une date de départ et une date de fin")
+        return false
+      }
+
+      if(dateKeys === 0) return true
+
+      const dateArrivee = new Date(values['Date-debut'].split('-').reverse().join('-'))
+      const dateDepart = new Date(values['Date-fin'].split('-').reverse().join('-'))
+
+      if (dateArrivee === dateDepart) {
+        this.$nuxt.$emit('notification', null, 'Saisissez une date d\'arrivée différente de la date de départ !')
+        return false
+      }
+
+      if (dateArrivee > dateDepart) {
+        const intermediate = values['Date-fin']
+        this.$store.commit('search/set', {'Date-fin' : values['Date-debut'] })
+        this.$store.commit('search/set', {'Date-debut' : intermediate })
+      }
+
+      return true
     }
   }
 }

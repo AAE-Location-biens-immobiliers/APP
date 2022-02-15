@@ -71,9 +71,9 @@ export default {
           locataire: true
         },
         {
-          title: "Mes annonces",
+          title: "Mes habitations",
           connected: true,
-          to: '/annonces',
+          to: '/habitations',
           locataire: false
         },
         {
@@ -91,9 +91,9 @@ export default {
   },
   computed: {
     items() {
-      const auth = this.$store.state.session.authenticated
+      const auth = this.$store.getters["session/isAuth"]
       const i = this.menuItems.filter(e => e.connected === auth)
-      return auth === true ? i.filter(e => e.locataire === this.$store.state.session.currentUser.locataire || !('locataire' in e)) : i
+      return auth === true ? i.filter(e => e.locataire === this.$store.getters["session/getUser"].locataire || !('locataire' in e)) : i
     }
   },
 }
