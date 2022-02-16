@@ -40,9 +40,7 @@ export default {
   },
   methods: {
     submit() {
-      if (this.data !== '') {
-        this.$emit('submit-destination', this.data)
-      }
+      this.$emit('submit-destination', this.data)
     },
     async fetchData() {
       try {

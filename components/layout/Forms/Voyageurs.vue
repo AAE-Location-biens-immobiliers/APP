@@ -14,7 +14,7 @@
                     <v-list-item-subtitle v-text="categorie.sousTitre" />
                   </v-list-item-content>
                   <v-list-item-action>
-                    <PlusOuMoins @changeData="(v) => values[categorie.titre] = v "/>
+                    <PlusOuMoins :default=values[categorie.titre] @changeData="(v) => localValues[categorie.titre] = v"/>
                   </v-list-item-action>
                 </v-list-item>
               </v-list>
@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       values: {},
+      localValues: {},
       categories:[
         {
           titre: 'Adultes',
@@ -59,10 +60,19 @@ export default {
       ]
     }
   },
+  created() {
+    const store = this.$store.getters["search/getValues"].Object
+    this.values = store ? { ...store } : Object.assign({}, ...this.categories.map(c => { return { [c.titre]: 0 } }))
+  },
   methods: {
     submit() {
-      this.$emit('submit-object', this.values)
-    }
+      Object.keys(this.values).forEach(k => {
+        if (!(k in this.localValues)) {
+          this.localValues[k] = this.values[k];
+        }
+      })
+      this.$emit('submit-object', this.localValues)
+    },
   }
 }
 </script>

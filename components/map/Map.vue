@@ -8,8 +8,8 @@
     :options="options"
   >
     <gmap-marker
-      :key="index"
       v-for="(m, index) in markers"
+      :key="index"
       :position="m"
       @click="center=m"
     ></gmap-marker>
@@ -42,7 +42,6 @@ export default {
       }],
     }
   },
-
   computed: {
     mapCoordinates() {
       if (!this.map) {
@@ -57,7 +56,6 @@ export default {
       }
     }
   },
-
   created() {
     // does the user have a saved center? use it instead of the default
     if (localStorage.center) {
@@ -94,7 +92,6 @@ export default {
       localStorage.zoom = zoom;
     }
   },
-
 }
 </script>
 <style>

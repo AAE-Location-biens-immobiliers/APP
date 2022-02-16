@@ -8,6 +8,11 @@
             :min="new Date().toJSON().slice(0,10).replace(/-/g,'-')" />
         </v-row>
         <v-row>
+          <v-btn fab x-small class="mx-2" color="error" @click="clear">
+            <v-icon>
+              mdi-close
+            </v-icon>
+          </v-btn>
           <v-spacer />
           <v-btn color="info" rounded class="mx-2" @click="submit">
             Ok
@@ -31,6 +36,9 @@ export default {
       if(this.picker !== '') {
         this.$emit('submit-date', this.picker.split('-').reverse().join('-'))
       }
+    },
+    clear() {
+      this.$emit('submit-date', null)
     }
   }
 }

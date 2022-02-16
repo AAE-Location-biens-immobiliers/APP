@@ -3,7 +3,7 @@
     :src="require('./../static/Background.jpeg')"
   >
     <v-container fluid class=" justify-center" fill-height>
-      <v-card color="secondary" min-width="400">
+      <v-card color="secondary" min-width="400" @keyup.enter="submit">
 
         <v-img
           class="align-end"
@@ -103,7 +103,6 @@ export default {
             email: this.email,
             password: this.password
           })
-          this.$store.commit('session/connexion', {})
         } catch (e) {
           this.$nuxt.$emit('notification', true, e.message)
         } finally {

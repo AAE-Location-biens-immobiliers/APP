@@ -23,10 +23,19 @@
 <script>
 export default {
   name: "PlusOuMoins",
+  props: {
+    default: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       value: 0
     }
+  },
+  created() {
+    this.value = this.default
   },
   methods: {
     increase() {

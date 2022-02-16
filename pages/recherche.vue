@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import ItemListPins from '../components/Map/ItemListPins.vue'
-import filtreList from '../components/Map/FiltreList.vue'
-import Map from '../components/Map/Map.vue'
+import ItemListPins from '../components/map/ItemListPins.vue'
+import filtreList from '../components/map/FiltreList.vue'
+import Map from '../components/map/Map.vue'
 
 export default {
   components: { ItemListPins, Map, filtreList },

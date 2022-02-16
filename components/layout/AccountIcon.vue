@@ -26,9 +26,9 @@ export default {
     }
   },
   created() {
-    if (this.$store.state["session/authenticated"]) {
+    /* if (this.$store.getters.session.isAuth) {
       this.profileImage = this.$store.state["session/currentUser"].photo
-    }
+    } */
   }
 }
 </script>
