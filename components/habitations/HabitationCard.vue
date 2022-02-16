@@ -50,6 +50,7 @@
             :value="habitation.numero"
             hide-details
             type="number"
+            :min="0"
             dense
           />
         </v-col>
@@ -265,7 +266,7 @@ export default {
   watch: {
     modifier(nV) {
       if (nV === true) this.keyModal += 1
-    }
+    },
   },
   methods: {
     editPhoto() {
@@ -341,5 +342,11 @@ export default {
 
 .imageCard:hover {
   cursor: pointer
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

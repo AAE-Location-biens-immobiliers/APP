@@ -18,9 +18,9 @@ export const mutations = {
   setHabitations(state, habitations) {
     state.habitations = habitations
   },
-  addHabitation(state, habitation) {
+  ajouterHabitation(state, habitation) {
     const hab = new Habitation(habitation)
-    if (this.getHabitations() === null) {
+    if (state.habitations === null) {
       state.habitations = [hab]
     } else state.habitations.push(hab)
   },
@@ -80,8 +80,23 @@ export const actions = {
         id
       }
     })
-
     if(res.status !== 200) throw new Error("Erreur lors de la suppression de l'habitation")
     else commit('supprimerHabitation', id)
+  },
+
+  async postHabitation({ commit, rootState }, habitation) {
+    const photo = habitation.photo
+    habitation.photo = null
+    const res = await this.$axios.post(HABITATIONS, { habitation, photo }, {
+      params: {
+        idPersonne: rootState.session.currentUser.id
+      }
+    })
+    if (res.status !== 200) throw new Error('Erreur lors de l\'ajout de l\'habitation')
+    else {
+      const hab = new Habitation(res.data)
+      if (hab.photo && !hab.photo.includes('base64')) hab.photo = 'data:image/jpeg;base64,' + hab.photo
+      commit("ajouterHabitation", hab);
+    }
   }
 }

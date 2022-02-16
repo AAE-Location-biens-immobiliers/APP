@@ -101,7 +101,7 @@ export default {
 
 #main {
   overflow: auto;
-  max-height: 100vh;
+  max-height: 90vh;
 
   &::-webkit-scrollbar {
     display: none;
@@ -123,5 +123,7 @@ html {
 * {
   font-family: 'Roboto', sans-serif;
 }
+
+
 
 </style>

@@ -32,7 +32,7 @@
           <v-row>
             <v-col cols="12">
               <v-row v-for="(habitation, i) in $store.getters['profil/getHabitations']" :key="i">
-                <HabitationCard :habitation="habitation"/>
+                <HabitationCard :habitation="habitation" class="my-4"/>
               </v-row>
             </v-col>
           </v-row>
