@@ -29,7 +29,6 @@ export const actions = {
     })
     if (res.status === 200) {
       commit('connexion', res.data)
-      await this.$router.push('/')
     } else if(res.status === 204) throw new Error("Le mot de passe et l'email ne correspondent pas")
     else throw new Error("Erreur inconnue")
   },

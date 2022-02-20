@@ -1,8 +1,9 @@
 export class Avis {
 
   constructor(avis) {
-    this.idAvis = avis.idAvis
-    this.commentaire = avis.commentaire
-    this.etoile = avis.etoile;
+    this.idAvis = avis.idAvis ?? null
+    this.commentaire = avis.commentaire ?? null
+    this.etoile = avis.etoile ?? null;
+    this.idWriter = avis.idWriter ?? null
   }
 }

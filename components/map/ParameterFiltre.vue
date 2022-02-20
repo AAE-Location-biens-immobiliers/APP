@@ -13,7 +13,7 @@
         <v-icon>mdi-gesture-tap-button</v-icon>
       </v-btn>
     </template>
-    <v-card>
+    <v-card >
       <v-card-title>
         <span class="text-h5">Paramètre des filtres</span>
       </v-card-title>
@@ -26,10 +26,8 @@
         </v-card-title>
         <v-list color="transparent" one-line>
           <div
-            v-for="(filtre, index) in this.filtres"
+            v-for="(filtre, index) in filtres"
             :key="index"
-            color="transparent"
-
           >
             <div v-if="filtre.piece" style="margin-bottom: 20px">
               <v-row class="mb-0 pa-0" no-gutters>
@@ -42,7 +40,7 @@
                       class="mx-5"
                       fab
                       small
-                      :disabled="filtre.number===0"
+                      :disabled="filtre.number === 0"
                       @click="clickEventMinus(filtre)"
                     >
                       <v-icon white>
@@ -72,7 +70,7 @@
       <v-card class="o pa-3 overflow-y-auto"
               style="margin: 15px"
               color="secondary">
-        <v-card-title>
+        <v-card-title class="py-0">
           <span class="text-h6">Commodités</span>
         </v-card-title>
         <v-card
@@ -83,10 +81,9 @@
           tile
         >
           <div
-            v-for="(filtre, index) in this.filtres"
+            v-for="(filtre, index) in filtres"
             :key="index"
             color="transparent"
-
           >
             <div v-if="filtre.commodities">
 
@@ -101,7 +98,7 @@
       <v-card class="o pa-3 overflow-y-auto"
               style="margin: 15px"
               color="secondary">
-        <v-card-title>
+        <v-card-title class="py-0">
           <span class="text-h6">Type de logement</span>
         </v-card-title>
         <v-card
@@ -118,17 +115,17 @@
 
           >
             <div v-if="filtre.type">
-
               <div v-if="!filtre.choose" class=" item pa-2" style="cursor: pointer; background-color:white; margin: 5px"
                    @click="clickEvent(filtre)">
                 {{ filtre.name }}
               </div>
             </div>
           </div>
+          <span v-show="typeDeLogement" class="message pl-2">Un seul type de logement peut être choisi*</span>
         </v-card>
       </v-card>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn
           color="primary"
           text
@@ -152,6 +149,7 @@
 <script>
 
 export default {
+  name: 'ParameterFiltre',
   props: {},
   data: () => ({
     dialog: false,
@@ -185,31 +183,43 @@ export default {
         commodities: 'Commodites',
         name: 'Laveuse',
         choose: false,
+        key: 'lave_linge'
       },
       {
         commodities: 'Commodites',
         name: 'Wifi',
         choose: false,
+        key: 'wifi'
       },
       {
         commodities: 'Commodites',
         name: 'Secheuse',
         choose: false,
+        key: 'seche_linge'
       },
       {
         commodities: 'Commodites',
         name: 'Climatisation',
         choose: false,
+        key: 'climatisation'
       },
       {
         commodities: 'Commodites',
         name: 'Cuisine',
         choose: false,
+        key: 'cuisine'
       },
       {
         commodities: 'Commodites',
-        name: 'Piscine',
+        name: 'TV',
         choose: false,
+        key: 'tv'
+      },
+      {
+        commodities: 'Commodites',
+        name: 'Parking',
+        choose: false,
+        key: 'parking'
       },
       {
         piece: 'Chambres et Lits',
@@ -230,12 +240,21 @@ export default {
         number: 0,
       },
     ],
-
+    typeDeLogement: false
   }),
+  watch: {
+    dialog(nV) {
+      if (nV === true) {
+        this.typeDeLogement = this.filtres.filter(t => t.choose === true && t.type === 'Type de logement').length
+      }
+    },
+  },
   methods: {
     clickEvent(filtre) {
+      if(filtre.type === 'Type de logement' && this.typeDeLogement) return
       filtre.choose = true;
       this.submit();
+      if(filtre.type === 'Type de logement') this.typeDeLogement = true
     },
     submit() {
       this.$emit('submit-data', this.filtres)
@@ -260,9 +279,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .item {
   border-radius: 10px;
   border: 2px solid rgb(78, 76, 76);
+}
+
+.v-dialog::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  font-size: small;
+  color: red
 }
 </style>

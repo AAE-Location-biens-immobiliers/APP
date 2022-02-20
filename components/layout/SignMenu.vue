@@ -1,6 +1,5 @@
 <template>
   <v-menu
-
     bottom
     left
     origin="center center"
@@ -65,7 +64,7 @@ export default {
           to: '/inscription'
         },
         {
-          title: "Mes voyages",
+          title: "Mes réservations",
           connected: true,
           to: '/voyages',
           locataire: true

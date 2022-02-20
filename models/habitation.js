@@ -10,7 +10,7 @@ export class Habitation {
     this.code = habitation.code ?? null;
     this.rue = habitation.rue  ?? null;
     this.ville = habitation.ville ?? null;
-    this.photo = habitation.photo ?? null;
+    this.photo = habitation.photo ? habitation.photo.includes('base64,') ? habitation.photo : 'data:image/jpeg;base64,' + habitation.photo : null;
     this.wifi = habitation.wifi ?? false;
     this.lave_linge = habitation.lave_linge ?? false;
     this.seche_linge = habitation.seche_linge ?? false;

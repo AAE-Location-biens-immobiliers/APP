@@ -200,7 +200,7 @@
         <span>Supprimer</span>
       </v-tooltip>
       <v-spacer />
-      <v-btn rounded outlined color="info">
+      <v-btn rounded outlined color="info" @click.stop="showAjouterAnnonce = true">
         <v-icon left>
           mdi-plus
         </v-icon>
@@ -224,7 +224,8 @@
       </v-btn>
     </v-card-actions>
 
-    <ModifierHabitation v-if="!edit" :key="keyModal" v-model="modifier" :habitation="habitation" />
+    <AjouterAnnonceModal :key="'A' + ajouterAnnonceKey" v-model="showAjouterAnnonce" :habitation="habitation"/>
+    <ModifierHabitation v-if="!edit" :key="'B' + keyModal" v-model="modifier" :habitation="habitation" />
     <SuppressionModal v-model="showSupprModal" :habitation="habitation" />
   </v-card>
 </template>
@@ -233,10 +234,11 @@
 import ModifierHabitation from "@/components/habitations/HabitationModal";
 import { Habitation } from "@/models/habitation";
 import SuppressionModal from "@/components/habitations/SuppressionModal";
+import AjouterAnnonceModal from "@/components/annonces/AjouterAnnonceModal";
 
 export default {
   name: "HabitationCard",
-  components: { SuppressionModal, ModifierHabitation },
+  components: { SuppressionModal, ModifierHabitation, AjouterAnnonceModal },
   props: {
     habitation: {
       type: Object,
@@ -253,9 +255,11 @@ export default {
     return {
       modifier: false,
       keyModal: 0,
+      ajouterAnnonceKey: 0,
       loading: false,
       photo: null,
-      showSupprModal: false
+      showSupprModal: false,
+      showAjouterAnnonce: false
     }
   },
   computed: {
@@ -267,6 +271,9 @@ export default {
     modifier(nV) {
       if (nV === true) this.keyModal += 1
     },
+    showAjouterAnnonce(nV) {
+      if(nV === true) this.ajouterAnnonceKey += 1
+    }
   },
   methods: {
     editPhoto() {

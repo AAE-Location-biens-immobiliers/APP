@@ -103,6 +103,7 @@ export default {
             email: this.email,
             password: this.password
           })
+          await this.$router.push('/')
         } catch (e) {
           this.$nuxt.$emit('notification', true, e.message)
         } finally {

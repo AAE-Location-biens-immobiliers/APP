@@ -18,12 +18,13 @@
 <script>
 /*
 <div>
-    <h1>Map coordinates:</h1>
+    <h1>map coordinates:</h1>
     <p>{{ mapCoordinates.lat }} Latitude, {{ mapCoordinates.lng }} Longitude</p>
   </div>
  */
 
 export default {
+  name: 'Map',
   data() {
     return {
       map: null,

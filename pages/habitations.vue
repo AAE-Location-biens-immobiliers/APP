@@ -31,7 +31,7 @@
         <v-container class="my-3">
           <v-row>
             <v-col cols="12">
-              <v-row v-for="(habitation, i) in $store.getters['profil/getHabitations']" :key="i">
+              <v-row v-for="(habitation, i) in $store.getters['profil/getHabitations']" :key="'A' + i">
                 <HabitationCard :habitation="habitation" class="my-4"/>
               </v-row>
             </v-col>
@@ -42,7 +42,15 @@
 
       <v-tab-item :key="1">
         <v-container class="my-3">
-          Annonces
+          <v-container class="my-3">
+            <v-row>
+              <v-col cols="12">
+                <v-row v-for="(annonce, i) in $store.getters['profil/getAnnonces']" :key="'B' + i">
+                  <AnnoncesCard :annonce="annonce" class="my-4" />
+                </v-row>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-container>
       </v-tab-item>
     </v-tabs-items>
@@ -53,28 +61,37 @@
 <script>
 import HabitationCard from "@/components/habitations/HabitationCard";
 import AjouterHabitationStepper from "@/components/habitations/AjouterHabitationStepper";
+import AnnoncesCard from "@/components/habitations/annonces/AnnoncesCard";
 
 export default {
   name: "Annonces",
-  components: { AjouterHabitationStepper, HabitationCard },
+  components: {
+    AjouterHabitationStepper,
+    HabitationCard,
+    AnnoncesCard
+  },
   middleware: 'auth',
   data() {
     return {
       habitations: [],
       tab: null,
       showAjouterHabitation: false,
-      stepperIndex: 0
+      stepperIndex: 0,
     }
   },
   async fetch() {
     try {
       await this.$store.dispatch('profil/fetchHabitations')
+      await this.$store.dispatch('profil/fetchAnnonces')
     } catch (e) {
       this.$nuxt.$emit('notification', true, e.message)
     }
   },
   watch: {
     '$store.state.profil.habitations'() {
+      this.$forceUpdate()
+    },
+    '$store.state.profil.annonces'() {
       this.$forceUpdate()
     },
     showAjouterHabitation(nV) {
