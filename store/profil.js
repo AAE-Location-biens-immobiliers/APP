@@ -1,20 +1,25 @@
 import { Habitation } from "@/models/habitation";
+import { Annonce } from "@/models/annonce";
+import { Disponibilites } from "@/models/disponibilites";
 
 const HABITATIONS = '/habitations'
+const ANNONCES = '/annonces'
 
 export const state = () => ({
   habitations: null,
   annonces: null,
-  avis: null
 })
 
 export const getters = {
   getHabitations: state => state.habitations,
   getAnnonces: state => state.annonces,
-  getAvis: state => state.avis
 }
 
 export const mutations = {
+  reset(state) {
+    state.habitations = null;
+    state.annonces = null;
+  },
   setHabitations(state, habitations) {
     state.habitations = habitations
   },
@@ -31,6 +36,18 @@ export const mutations = {
   },
   supprimerHabitation(state, id) {
     state.habitations = state.habitations.filter(h => h.idHabitation !== id)
+  },
+  setAnnonces(state, annonces) {
+    state.annonces = annonces
+  },
+  supprimerAnnonce(state, id) {
+    state.annonces = state.annonces.filter(a => a.idAnnonce !== id)
+  },
+  ajouterAnnonce(state, annonce) {
+    const ann = new Annonce(annonce)
+    if (state.annonces === null) {
+      state.annonces = [ann]
+    } else state.annonces.push(ann)
   }
 }
 
@@ -43,12 +60,7 @@ export const actions = {
         }
       })
     if (res.status === 200) {
-      const habitations = res.data.map(h => {
-        const hab = new Habitation(h);
-
-        if (hab.photo && !hab.photo.includes('base64')) hab.photo = 'data:image/jpeg;base64,' + h.photo
-        return hab
-      })
+      const habitations = res.data.map(h => new Habitation(h))
       commit('setHabitations', habitations)
     } else throw new Error("Erreur lors de la récupération des habitations")
   },
@@ -97,6 +109,52 @@ export const actions = {
       const hab = new Habitation(res.data)
       if (hab.photo && !hab.photo.includes('base64')) hab.photo = 'data:image/jpeg;base64,' + hab.photo
       commit("ajouterHabitation", hab);
+    }
+  },
+
+  async fetchAnnonces({ commit, rootState }) {
+    const userID = rootState.session.currentUser.id
+    const res = await this.$axios.get(ANNONCES + '/user', {
+      params: {
+        id: userID
+      }
+    })
+    if(res.status !== 200) throw new Error('Erreur lors de la récupération des annonces')
+    else {
+      commit("setAnnonces", res.data.map(a => new Annonce(a)));
+    }
+  },
+
+  async deleteAnnonce({ commit }, id) {
+    const res = await this.$axios.delete(ANNONCES, {
+      params: { id }
+    })
+
+    if (res.status !== 200) throw new Error("Erreur lors de la suppression de l'annonce")
+    else {
+      commit('supprimerAnnonce', id)
+    }
+  },
+
+  async ajouterAnnonce({ commit }, { annonce, habitation }) {
+
+    annonce.prix = Number(annonce.prix)
+    annonce.idHabitation = new Habitation({ ...habitation })
+    annonce.idHabitation.photo = null
+
+    annonce.disponibilites = [
+      new Disponibilites({
+        idDisponibilite: null,
+        debut: new Date(Date.now()).toISOString().split('T')[0],
+        fin: "2050-01-02"
+      })
+    ]
+
+    const res = await this.$axios.post(ANNONCES, annonce)
+
+    if (res.status !== 200) throw new Error('Erreur lors de l\'ajout de l\'annonce')
+    else {
+      commit('ajouterAnnonce', res.data)
     }
   }
 }

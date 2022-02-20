@@ -3,7 +3,7 @@
     :src="require('./../static/background2.jpeg')"
   >
     <v-container fluid class="justify-center" fill-height>
-      <v-card color="secondary" min-width="400">
+      <v-card color="secondary" min-width="400" @keyup.enter="submit">
 
         <v-card-title class="justify-center">
           Inscription
@@ -54,6 +54,12 @@
               counter
               @click:append="show2 = !show2"
             />
+            <v-checkbox
+              v-model="locataire"
+              hide-details
+              class="mt-0 pt-0"
+              label="Compte locataire ?"
+            />
           </v-card-text>
 
           <v-divider />
@@ -90,6 +96,7 @@ export default {
       email: '',
       password: '',
       password2: '',
+      locataire: false,
       show1: false,
       show2: false,
       rules: {
@@ -112,7 +119,8 @@ export default {
             nom: this.nom,
             prenom: this.prenom,
             email: this.email,
-            password: this.password
+            password: this.password,
+            locataire: this.locataire
           })
 
           try {

@@ -43,6 +43,9 @@ export default {
   name: "Deconnexion",
   layout: 'empty',
   created() {
+    this.$store.commit('profil/reset')
+    this.$store.commit('search/reset')
+    this.$store.commit('tabAnnonce/reset')
     this.$store.commit('session/deconnexion')
   }
 }

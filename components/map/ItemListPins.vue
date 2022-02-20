@@ -1,14 +1,14 @@
 <template>
   <v-card
-    class="o pa-3 overflow-y-auto"
+    class="pa-3 overflow-y-auto"
     style="margin: 15px"
     height="600px"
     color="secondary"
   >
     <v-list style="overflow-y: auto" color="secondary" three-line>
-      <div v-for="(item, index) in items" :key="index">
+      <v-list-item v-for="(item, index) in items" :key="index">
         <ItemPin :item="item" />
-      </div>
+      </v-list-item>
     </v-list>
   </v-card>
 </template>
@@ -30,5 +30,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.v-card::-webkit-scrollbar {
+  display: none;
+}
 </style>

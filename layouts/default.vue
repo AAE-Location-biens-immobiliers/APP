@@ -10,17 +10,18 @@
       scroll-target="#main">
 
       <template #img="{ props }">
-        <v-img
-          v-bind="props"
-          class="ml-10"
-          :src="require('./../static/sharaloc.svg')"
-          max-height="128"
-          max-width="128"
-          contain
-        />
+          <v-img
+            v-bind="props"
+            class="ml-10"
+            :src="require('./../static/sharaloc.svg')"
+            max-height="128"
+            max-width="128"
+            contain
+          />
       </template>
 
-      <v-card width="128" max-height="128" class="ml-5"  />
+      <v-container fluid style="max-width:128px; max-height:128px" class="ml-7 icon" fill-height
+      @click="$router.push('/')"/>
 
       <v-spacer />
 
@@ -124,6 +125,8 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-
+.icon:hover {
+  cursor: pointer;
+}
 
 </style>

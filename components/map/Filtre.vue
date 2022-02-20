@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'Filtre',
   props: {
     filtre: {
       type: Object,

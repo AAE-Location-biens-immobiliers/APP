@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import ParameterFiltre from "@/components/Map/ParameterFiltre";
+import ParameterFiltre from "@/components/map/ParameterFiltre";
 import filtre from '@/components/map/Filtre.vue'
 
 export default {
   name: 'FiltreList',
-  components: {ParameterFiltre, filtre},
+  components: { ParameterFiltre, filtre },
   data() {
     return {
       values: {
@@ -53,15 +53,18 @@ export default {
   },
 
   methods: {
-
     updateFiltres(data) {
       /* alert('Event accessed from parent!'); */
       this.filtres = data;
+      this.$store.commit('tabAnnonce/filter', {
+        type: this.filtres.filter(f => f.type === 'Type de logement' && f.choose === true),
+        commodites: this.filtres.filter(f => f.commodities === 'Commodites'  && f.choose === true)
+      })
     },
     clickEvent(filtre) {
       filtre.choose = false;
-      if(filtre.number){
-        filtre.number=0;
+      if(filtre.number) {
+        filtre.number = 0;
       }
     },
 
