@@ -2,7 +2,7 @@
   <v-container
     class="item mx-auto"
     style="margin-bottom: 10px; background: white"
-    @click="$router.push('/annonce/' + item.idAnnonce)"
+    @click="clickAnnonce"
   >
     <v-list-item>
       <v-list-item-content style="margin-right:10px">
@@ -54,6 +54,12 @@ export default {
   data() {
     return {
       showModal: false
+    }
+  },
+  methods: {
+    clickAnnonce() {
+      this.$store.commit('tabAnnonce/set', this.item)
+      this.$router.push('/annonce')
     }
   }
 }

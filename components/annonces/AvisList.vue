@@ -31,7 +31,7 @@
           <v-tooltip bottom>
             <template #activator="{ attrs, on }">
               <v-btn
-                v-if="item.idWriter.id === $store.getters['session/getUser'].id"
+                v-if="$store.getters['session/isAuth'] && item.idWriter.id === $store.getters['session/getUser'].id"
                 small fab rounded color="error"
                 class="my-auto"
                 v-bind="attrs" v-on="on"

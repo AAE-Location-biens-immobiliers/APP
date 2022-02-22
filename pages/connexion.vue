@@ -5,12 +5,14 @@
     <v-container fluid class=" justify-center" fill-height>
       <v-card color="secondary" min-width="400" @keyup.enter="submit">
 
-        <v-img
-          class="align-end"
-          max-height="200"
-          contain
-          :src="require('~/static/sharaloc.svg')"
-        />
+        <v-container fluid class="pa-0 ma-0 acceuil" @click="$router.push('/')">
+          <v-img
+            class="align-end"
+            max-height="200"
+            contain
+            :src="require('~/static/sharaloc.svg')"
+          />
+        </v-container>
 
         <v-card-title class="justify-center">
           Portail
@@ -89,6 +91,9 @@ export default {
       },
     }
   },
+  created() {
+    if(this.$store.getters["session/getUser"] !== null) this.$router.push('/deconnexion')
+  },
   methods: {
     emailMatchFormat(email) {
       return String(email)
@@ -115,6 +120,9 @@ export default {
 }
 </script>
 
-<style  scoped>
+<style scoped lang="scss">
+.acceuil:hover {
+  cursor: pointer;
+}
 
 </style>

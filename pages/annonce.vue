@@ -120,7 +120,7 @@
 
           <v-divider />
 
-          <AvisList :avis="avis" @supprimer="supprimer" />
+          <AvisList ref="avis" :avis="avis" @supprimer="supprimer" />
 
           <div v-if="$store.getters['session/isAuth']">
             <v-row no-gutters>
@@ -194,19 +194,18 @@ import { Avis } from "@/models/avis";
 import { Reservation } from "@/models/reservation";
 
 export default {
-  name: "Slug",
+  name: "Annonce",
   components: { AvisList, AuthModal },
   layout: 'empty',
   async asyncData(ctx) {
-    const slug = ctx.params.slug
 
-    const retrieveAnnonce = ctx.store.getters["tabAnnonce/getTab"].filter(t => t.idAnnonce === Number(slug))
+    const retrieveAnnonce = ctx.store.getters["tabAnnonce/getCurrentAnnonce"]
 
-    if (!retrieveAnnonce.length) {
+    if (!retrieveAnnonce) {
       ctx.error({ statusCode: 404, message: 'Page non trouvée' })
     }
 
-    const annonce = new Annonce(retrieveAnnonce[0])
+    const annonce = new Annonce(retrieveAnnonce)
 
     let avis = []
     try {
@@ -248,6 +247,12 @@ export default {
     },
     habitation() {
       return this.annonce.idHabitation
+    }
+  },
+  watch: {
+    showAuth(nV) {
+      console.log(nV)
+      this.$refs.avis.$forceUpdate()
     }
   },
   created() {
@@ -337,7 +342,6 @@ export default {
           idAnnonce: this.annonce.idAnnonce
         }
 
-        console.log(reservations, params)
 
         const res = await this.$axios.post('/reservations', { reservations }, { params })
         if(res.status !== 200) throw Error

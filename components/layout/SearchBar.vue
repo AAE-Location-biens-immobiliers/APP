@@ -76,17 +76,8 @@ export default {
 
       if(!this.checkDate(values)) return
 
-      this.$nuxt.$emit('overlay', true)
-
-      try {
-        await this.$store.dispatch('tabAnnonce/rechercher')
-        await this.$router.push('/recherche')
-      } catch (e) {
-        this.$nuxt.$emit('notification', true, e.message)
-      } finally {
-        this.$nuxt.$emit('overlay', false)
-      }
-
+      await this.$router.push('/recherche')
+      await this.$nuxt.refresh()
     },
     checkDate(values) {
       const dateKeys = Object.keys(values).filter(el => el.includes('Date') && values[el] !== null).length
