@@ -20,8 +20,7 @@
           />
       </template>
 
-      <v-container fluid style="max-width:128px; max-height:128px" class="ml-7 icon" fill-height
-      @click="$router.push('/')"/>
+      <v-container fluid style="max-width:128px; max-height:128px" class="ml-7 icon pa-0" fill-height @click="$router.push('/')"/>
 
       <v-spacer />
 
