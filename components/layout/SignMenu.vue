@@ -66,7 +66,7 @@ export default {
         {
           title: "Mes réservations",
           connected: true,
-          to: '/voyages',
+          to: '/reservations',
           locataire: true
         },
         {

@@ -55,7 +55,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: env.baseURL || 'http://localhost:8080/api', // Used as fallback if no runtime config is provided
+    baseURL: env.baseURL || 'https://localhost:8081/api', // Used as fallback if no runtime config is provided
     headers: {
       common: {
         'Accept': 'application/json'
