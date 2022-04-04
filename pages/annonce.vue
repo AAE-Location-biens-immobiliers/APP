@@ -251,7 +251,6 @@ export default {
   },
   watch: {
     showAuth(nV) {
-      console.log(nV)
       this.$refs.avis.$forceUpdate()
     }
   },
@@ -366,11 +365,12 @@ export default {
           idWriter: this.$store.getters["session/getUser"].id,
           idLogement: this.annonce.idHabitation.idHabitation
         }
+
         const res = await this.$axios.post('/avis', avis, { params })
 
         if(res.status !== 200) throw Error
 
-        res.data.idWriter= this.$store.getters["session/getUser"]
+        res.data.idWriter = this.$store.getters["session/getUser"]
 
         this.avis.push(new Avis(res.data))
         this.commentaire = ''

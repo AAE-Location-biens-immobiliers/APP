@@ -42,14 +42,15 @@ export default {
       }
     })
 
-    const res = await ctx.$axios.get('/annonces/search', { params })
+    const res = await ctx.$axios.get('http://localhost:5000/api/annonces/search', { params })
 
     if(res.status !== 200) ctx.error({ statusCode: 404, message: 'Page non trouvée' })
     else return { annonces: res.data.map(a => {
         a.idHabitation = new Habitation(a.idHabitation);
         a = new Annonce(a);
         return a
-      }) }// commit("set", );
+      })
+    }
   }
 }
 </script>

@@ -56,7 +56,7 @@ export const actions = {
     const userID = rootState.session.currentUser.id
     const res = await this.$axios.get(HABITATIONS, {
         params: {
-          id: userID
+          id: userID,
         }
       })
     if (res.status === 200) {
@@ -65,7 +65,7 @@ export const actions = {
     } else throw new Error("Erreur lors de la récupération des habitations")
   },
 
-  async putHabitation({ commit }, habitation) {
+  async putHabitation({ commit, rootState }, habitation) {
     const photo = habitation.photo
     habitation.photo = null
 
@@ -76,6 +76,9 @@ export const actions = {
     const res = await this.$axios.put(HABITATIONS, { habitation, photo }, {
       headers: {
         'Content-Type': 'application/json'
+      },
+      params: {
+        id: rootState.session.currentUser.id
       }
     })
 

@@ -1,7 +1,7 @@
 <template>
   <v-card width="100%">
-    <v-card-title>{{ annonce.description }}</v-card-title>
-    <v-card-subtitle>Annonce reliée à l'habitation {{ annonce.idHabitation.description }}</v-card-subtitle>
+    <v-card-title>{{ annonce && annonce.description ? annonce.description : "" }}</v-card-title>
+    <v-card-subtitle>Annonce reliée à l'habitation {{ annonce && annonce.idHabitation && annonce.idHabitation.description ? annonce.idHabitation.description : "" }}</v-card-subtitle>
 
     <v-card-text>
       <v-row>
@@ -77,6 +77,7 @@ export default {
       }
     },
     convert(data) {
+      if(data.includes('T')) data = data.split("T")[0]
       return data.split('-').reverse().join('/')
     }
   }
